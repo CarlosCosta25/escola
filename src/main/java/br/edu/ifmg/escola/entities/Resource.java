@@ -19,10 +19,10 @@ import java.util.List;
 @Entity
 @Table(name = "tb_resource")
 public class Resource {
-
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
     private String title;
     private  String description;
     private Integer position;
@@ -33,5 +33,8 @@ public class Resource {
     @ManyToOne
     @JoinColumn(name = "offer_id", nullable = false)
     private Offer offer;
+
+    @OneToMany(mappedBy = "resource")
+    private List<Section> sections = new ArrayList<>();
 
 }

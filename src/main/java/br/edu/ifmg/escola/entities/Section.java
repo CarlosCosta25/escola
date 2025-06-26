@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -17,22 +19,25 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "tb_offer")
-public class Offer {
+@Table(name = "tb_section")
+public class Section {
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    private String edition;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant startMoment;
-    private Instant endMoment;
+    private String title;
+    private String description;
+    private int position;
+    private String imgUri;
 
     @ManyToOne
-    @JoinColumn(name = "course_id",nullable = false)
-    private Course course;
+    @JoinColumn(name = "resource_id", nullable = false)
+    private Resource resource;
 
-    @OneToMany(mappedBy = "offer")
-    private List<Resource> resources = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "prerequisit_id")
+    private Section prerequisit;
+
+    @OneToMany(mappedBy = "section")
+    private Set<Lesson> lessons = new HashSet<>();
 }
-
