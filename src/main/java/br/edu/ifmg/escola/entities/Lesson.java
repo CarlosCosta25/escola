@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -41,6 +43,8 @@ public abstract class Lesson {
     )
     private Set<Enrollment> enrollmentsDone = new HashSet<>();
 
+    @OneToMany(mappedBy = "lesson")
+    private List<Deliver> delivers = new ArrayList<>();
 
 
 

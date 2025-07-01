@@ -1,17 +1,16 @@
 package br.edu.ifmg.escola.entities;
 
 import br.edu.ifmg.escola.entities.pk.EnrollmentPk;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -29,18 +28,26 @@ public class Enrollment {
     private Instant refundMoment;
     private boolean available;
     private boolean onlyupdate;
+
     @ManyToMany(mappedBy = "enrollmentsDone")
     private Set<Lesson> lessons_done = new HashSet<>();
 
-    public  User getUser() {
+    @OneToMany(mappedBy = "enrollment")
+    private List<Deliver> delivers = new ArrayList<>();
+
+
+    public User getUser() {
         return id.getUser();
     }
+
     public Offer getOffer() {
         return id.getOffer();
     }
+
     public void setUser(User user) {
         id.setUser(user);
     }
+
     public void setOffer(Offer offer) {
         id.setOffer(offer);
     }
